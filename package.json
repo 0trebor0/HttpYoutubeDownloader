@@ -1,0 +1,28 @@
+{
+  "name": "httpYoutubeDownloader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0trebor0/httpYoutubeDownloader.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/0trebor0/httpYoutubeDownloader/issues"
+  },
+  "homepage": "https://github.com/0trebor0/httpYoutubeDownloader#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "mime-types": "^2.1.24",
+    "nodemon": "^1.19.1",
+    "url": "^0.11.0",
+    "ytdl-core": "^0.29.2"
+  }
+}
