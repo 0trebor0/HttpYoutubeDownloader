@@ -18,8 +18,8 @@ try{
 				if( parsed.pathname == '/video' ){
 					if( ytdl.validateID( parsed.query.id ) ){
 						//ytdl.getInfo( parsed.query.id, ( err, info )=>{} );
-						//res.writeHead( 206, {'Content-Type' : 'video/mp4'} );
-						//ytdl( "https://www.youtube.com/watch?v="+parsed.query.id ).pipe( res );
+						res.writeHead( 200, {'Content-Type' : 'video/mp4'} );
+						ytdl( "https://www.youtube.com/watch?v="+parsed.query.id ).pipe( res );
 						//ytdl( parsed.query.mp4 ).pipe( fs.createWriteStream('./video.mp4') );
 					} else if( ytdl.validateURL( parsed.query.url ) ){
 						//ytdl.getInfo( parsed.query.id, ( err, info )=>{} );
@@ -29,8 +29,8 @@ try{
 					}
 				} else if( parsed.pathname == '/music' ){
 					if( ytdl.validateID( parsed.query.id ) ){
-						//res.writeHead( 206, {'Content-Type' : 'audio/mpeg'} );
-						//ytdl( "https://www.youtube.com/watch?v="+parsed.query.id, { filter: 'audioonly' } ).pipe( res );
+						res.writeHead( 200, {'Content-Type' : 'audio/mpeg'} );
+						ytdl( "https://www.youtube.com/watch?v="+parsed.query.id, { filter: 'audioonly' } ).pipe( res );
 					} else if( ytdl.validateURL( parsed.query.url ) ){
 						res.writeHead( 200, {'Content-Type' : 'audio/mpeg'} );
 						ytdl( parsed.query.url, { filter: 'audioonly' } ).pipe( res );
