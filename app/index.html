@@ -5,7 +5,14 @@
     </head>
     <body>
         <center>
-            
+            <div>
+                <h1>Youtube Download</h1>
+                <p>Youtube Link:<input type="text" id="youtubeUrl" size="24" autocomplete="off"/><button>Download</button></p>
+            </div>
         </center>
+        <script>
+            var ytdl = require('ytdl-core');
+            var fs = require('fs');
+        </script>
     </body>
 </html>
