@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Youtube Downloader</title>
+	</head>
+	<body>
+		<center>
+			<h1>Youtube Downloader</h1>
+			<div id="error"></div>
+			<p>YoutubeUrl:<input type="text" id="url"/><button onclick="return downloadButton()">Get</button></p>
+			<div id="videoInfo"></div>
+		</center>
+		<script>
+			var url = require('url');
+			var ytdl = require('ytdl-core');
+			downloadButton = ()=>{
+				var query = url.parse( document.getElementById('url').value, true ).query
+				//console.log( query );
+				if( query.v ){
+					ytdl.getInfo( query.v, ( err, info )=>{
+						try{
+							let video = ytdl.chooseFormat(info.formats, { quality: 'highest' });
+							let audio = ytdl.chooseFormat(info.formats, { quality: 'highestaudio' });
+							if( video ){
+								//console.log( video );
+								//console.log( audio );
+								document.getElementById('videoInfo').innerHTML += "<p>"+info.title+"</p>";
+								document.getElementById('videoInfo').innerHTML += "<button onclick='downloadFile( "+JSON.stringify( {"title":info.title,"url":video.url,"type":video.type} )+" )'>Download Video</button>";
+								document.getElementById('videoInfo').innerHTML += "<button onclick='downloadFile( "+JSON.stringify( {"title":info.title,"url":audio.url,"type":audio.type} )+" )'>Download Audio</button>";
+							}
+						}catch( err ){
+							document.getElementById('error').innerHTML = "<p>"+err+"</p>";
+						}
+					} );
+				} else {
+					document.getElementById('error').innerHTML = "<p>invalid url</p>";
+				}
+				return false;
+			}
+			downloadFile = ( array )=>{
+				let fileType = array.type.split(' ')[0].replace(";","");
+				let fileName = array.title.replace(/[^a-z0-9]/gi, '_')+getFileExtension( fileType );
+				console.log( fileName );
+			}
+			getFileExtension = ( mime )=>{
+				if( mime == 'video/mp4' ){
+					return ".mp4";
+				} else if( mime == 'audio/webm' ){
+					return ".webm";
+				} else {
+					return ".mp4";
+				}
+			}
+		</script>
+	</body>
+</html>

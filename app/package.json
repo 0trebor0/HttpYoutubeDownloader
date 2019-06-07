@@ -1,0 +1,19 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "5.0.2"
+  },
+  "dependencies": {
+    "url": "^0.11.0",
+    "ytdl-core": "^0.29.2"
+  }
+}
