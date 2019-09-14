@@ -1,0 +1,51 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youtube Download Tool</title>
+</head>
+<style>
+    body{
+        text-align: center;
+    }
+</style>
+<body>
+    <div>  
+        <h1>Type Youtube Url Or Id</h1>
+        <input type="text" id="youtubeUrl" autocomplete="off"/>
+        <button onclick="button()">View</button>
+    </div>
+    <div id="response"></div>
+    <div id="error"></div>
+    <script>
+        function button(){
+            if( document.getElementById( 'youtubeUrl' ).value == null || document.getElementById('youtubeUrl').value == '' ){
+                document.getElementById( 'youtubeUrl' ).style.backgroundColor = "red";
+            } else {
+                fetch( "/api/media",{
+                    method: "POST",
+                    body: JSON.stringify({"url":document.getElementById( 'youtubeUrl' ).value})
+                } ).then( ( response )=>{
+                    return response.json();
+                } ).then( ( data )=>{
+                    console.log( data );
+                    if( "video" in data ){
+                        if( document.getElementById('videoplayer') == null ){
+                            document.getElementById('response').innerHTML +="<p><video id='videoplayer' width='320' height='240' src='"+data.video[0].url+"' controls/></p>";
+                        } else {
+                            document.getElementById( 'videoplayer' ).src = data.video[0].url;
+                        }
+                    }
+                    if( "audio" in data ){
+                        if( document.getElementById('audioplayer') == null ){
+                            document.getElementById('response').innerHTML +="<p><audio id='audioplayer' src='"+data.video[0].url+"' controls/></p>";
+                        } else {
+                            document.getElementById( 'audioplayer' ).src = data.video[0].url;
+                        }
+                    }
+                    if( "error" in data ){
+                        document.getElementById( 'error' ).innerHTML += "<p>"+data.error+"</p>";
+                    }
+                } );
+            }
+        }
+    </script>
+</body>
